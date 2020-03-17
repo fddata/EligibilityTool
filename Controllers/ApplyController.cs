@@ -3,6 +3,7 @@ using EligibilityTool.Models;
 using EligibilityTool.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,14 +34,69 @@ namespace EligibilityTool.Controllers
             else
             {
 
+                model.DOB = CheckDOBIsValid(model.DOB); // 'required to handle conversion of datetime2 error'
+
+
                 var eligibleCards = GetEligibleCards(model);
+                var cardApplication = new CardApplication
+                {
+                    Cards = eligibleCards.ToList(),
+                    DOB = model.DOB,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Income = model.Income
+                };
+
+                db.CardApplications.Add(cardApplication);
+                db.SaveChanges();
+
+                var resultsModel = new ResultsViewModel()
+                {
+                    Cards = eligibleCards.ToList()
+                };
+
+                return RedirectToAction("Results", resultsModel);
+            }
+
+        }
+
+        [HttpGet]
+        public ActionResult Results(ResultsViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                //todo add a view bag error
+                return RedirectToAction("Index", "Apply");
+            }
+
+            else
+            {
+                return View();
 
             }
 
         }
 
 
-        private List<Card> GetEligibleCards(ApplyViewModel model)
+        private DateTime CheckDOBIsValid(DateTime dob)
+        {
+            if (dob < SqlDateTime.MinValue.Value)
+            {
+                return SqlDateTime.MinValue.Value;
+            }
+            else if (dob > SqlDateTime.MaxValue.Value)
+            {
+                return SqlDateTime.MaxValue.Value;
+            }
+            else
+            {
+                return dob;
+            }
+        }
+
+
+
+        private IEnumerable<Card> GetEligibleCards(ApplyViewModel model)
         {
             var result = new List<Card>() { };
             try

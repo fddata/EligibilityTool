@@ -34,7 +34,7 @@ namespace EligibilityTool.Controllers
             else
             {
 
-                model.DOB = CheckDOBIsValid(model.DOB); // 'required to handle conversion of datetime2 error'
+                model.DOB = CheckDOBIsValidForSQL(model.DOB); // 'required to handle conversion of datetime2 error'
 
 
                 var eligibleCards = GetEligibleCards(model);
@@ -89,7 +89,7 @@ namespace EligibilityTool.Controllers
 
 
 
-        private DateTime CheckDOBIsValid(DateTime dob)
+        private DateTime CheckDOBIsValidForSQL(DateTime dob)
         {
             if (dob < SqlDateTime.MinValue.Value)
             {

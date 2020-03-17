@@ -50,32 +50,43 @@ namespace EligibilityTool.Controllers
                 db.CardApplications.Add(cardApplication);
                 db.SaveChanges();
 
-                var resultsModel = new ResultsViewModel()
-                {
-                    Cards = eligibleCards.ToList()
-                };
+                Int32 id = cardApplication.CardApplicationID;
 
-                return RedirectToAction("Results", resultsModel);
+                return RedirectToAction("Results", new { cardApplicationID = id });
             }
 
         }
 
         [HttpGet]
-        public ActionResult Results(ResultsViewModel model)
+        public ActionResult Results(int cardApplicationID)
         {
             if (!ModelState.IsValid)
             {
                 //todo add a view bag error
                 return RedirectToAction("Index", "Apply");
             }
-
             else
             {
-                return View();
+                try
+                {
+                    var application = db.CardApplications.First(c => c.CardApplicationID == cardApplicationID);
 
-            }
-
+                    var model = new ResultsViewModel()
+                    {
+                        Cards = application.Cards
+                    };
+                
+                    return View(model);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Error in Apply/Results:  {e.Message}");
+                    return RedirectToAction("Index", "Apply");
+                }
+            }   
         }
+
+
 
 
         private DateTime CheckDOBIsValid(DateTime dob)

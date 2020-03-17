@@ -1,0 +1,26 @@
+﻿@model EligibilityTool.Models.ViewModels.ResultsViewModel
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Results</h2>
+
+@if (!Model.Cards.Any())
+{
+    <h4>No cards available</h4>
+}
+
+else
+{
+
+    foreach(var card in Model.Cards)
+    {
+        <p>@card.Name</p>
+        <p>@card.APR</p>
+        <p>@card.PromoMessage</p>
+    }
+
+}
+

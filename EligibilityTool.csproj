@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\CardApplication.cs" />
+    <Compile Include="Models\ViewModels\ApplyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

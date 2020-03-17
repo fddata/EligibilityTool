@@ -24,7 +24,7 @@ namespace EligibilityTool.Models.ViewModels
 
         [Required]
         [DataType(DataType.Currency)]
-        [Display(Name = "Income (GBP p.a.")]
+        [Display(Name = "Income (GBP per annum)")]
         public decimal Income { get; set; }
     }
 }

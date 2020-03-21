@@ -5,22 +5,40 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Results</h2>
+    <div class="row">
 
-@if (!Model.Cards.Any())
-{
-    <h4>No cards available</h4>
-}
+        <h2>Results</h2>
 
-else
-{
+        <p>Based on the information you provided, you are eligible for the following cards:</p>
 
-    foreach(var card in Model.Cards)
-    {
-        <p>@card.Name</p>
-        <p>@card.APR</p>
-        <p>@card.PromoMessage</p>
-    }
+    </div>
 
-}
+<br />
 
+    <div class="row">
+
+
+        @if (!Model.Cards.Any())
+        {
+            <h4>No credit cards are available</h4>
+        }
+
+        else
+        {
+
+            foreach (var card in Model.Cards)
+            {
+
+                <div class="col-sm-offset-1 col-sm-5">
+
+                <p>Card name: <b>@card.Name</b></p>
+                <p>APR: <b>@card.APR %</b></p>
+                <p>@card.PromoMessage</p>
+
+                </div>
+
+            }
+
+        }
+
+    </div>

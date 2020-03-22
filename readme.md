@@ -10,4 +10,6 @@ Written using ASP.NET MVC 5 with Entity Framework 6.
 
 - Run the app (tested from within Visual Studio 2019).
 
+- Depending on your development setup, you may be prompted to install dependencies via the Visual Studio Installer (such as .NET desktop development).
+
 

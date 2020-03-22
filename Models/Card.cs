@@ -10,13 +10,15 @@ namespace EligibilityTool.Models
     public class Card
     {
         [Key]
-        public int CardID { get; set; }
+        public int? CardID { get; set; }
 
         public string Name { get; set; }
 
         public decimal APR { get; set; }
 
         public string PromoMessage { get; set; }
+
+        public virtual ICollection<CardApplication> CardApplications { get; set; }
 
     }
 }

@@ -19,7 +19,7 @@ namespace EligibilityTool.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
 
@@ -76,7 +76,7 @@ namespace EligibilityTool.Controllers
                         Cards = application.Cards
                     };
                 
-                    return View(model);
+                    return View("Results", model);
                 }
                 catch (Exception e)
                 {
@@ -117,7 +117,7 @@ namespace EligibilityTool.Controllers
                     //applicant is less than 18, return empty list
                     return result;
                 }
-                else if (model.Income < 30000m)
+                else if (model.Income <= 30000m)
                 {
                     result.Add(db.Cards.First(c => c.Name == "Vanquis"));
                     return result;
